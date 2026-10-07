@@ -6,6 +6,10 @@
 
 # escudo-express
 
+<!-- public-badges:start -->
+[![license](assets/support/badge-license.svg)](LICENSE) [![CI](assets/support/badge-ci.svg)](https://github.com/Rdraim/escudo-express/actions) [![release](assets/support/badge-release.svg)](https://github.com/Rdraim/escudo-express/releases)
+<!-- public-badges:end -->
+
 Limitador de solicitudes por ventana fija y contador de respuestas fallidas para un único proceso de Node.js.
 
 ## Empezá acá

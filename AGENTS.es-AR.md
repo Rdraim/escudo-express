@@ -13,3 +13,5 @@
 - El apoyo va al final de cada README. Las donaciones son opcionales; el autor autorizó la clave Pix y el QR original el 07/10/2026. Conservá los assets aprobados; no inventes otros datos de pago ni publiques datos operativos o de usuarios.
 - Interfaz: íconos accesibles sin marco y con ayudas; campos proporcionales; diseño adaptable; temas claro/oscuro; teclado, desplazamiento y minimizar/restaurar conservando los campos.
 - Generalizá y revisá los cambios inspirados en Nexus; no supongas que las bibliotecas públicas se importan automáticamente en el sistema.
+
+- Badges condicionales: Stars/Forks solo por encima de cero, CI solo aprobado y Release solo publicada. No mostrar badges de error rojos en el README; mantener los diagnósticos reales en Actions. Actualizar con tools/update-badges.mjs y badges.yml, sin JavaScript en el README.

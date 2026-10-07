@@ -13,3 +13,5 @@
 - Support belongs at the end of each README. Donations are optional; the owner authorized the Pix key and original QR on 2026-10-07. Preserve approved assets; never infer other payment details or publish user/production data.
 - UI: accessible loose icons with tooltips; proportional fields; responsive layout; light/dark themes; keyboard, scroll and input-preserving minimize/restore.
 - Generalize and review changes inspired by Nexus; do not assume these public libraries are automatically imported into the system.
+
+- Conditional badges: show Stars/Forks only above zero, CI only when passing and Release only when published. Do not show red error badges in the README; retain actual diagnostics in Actions. Update through tools/update-badges.mjs and badges.yml, without README JavaScript.

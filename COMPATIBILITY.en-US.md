@@ -25,3 +25,14 @@ Versions queried from the official npm registry; no declared engine does not gua
 Express consumers must resolve proxy-addr >=2.0.8 within their compatible range; this release fixes GHSA-jqcg-44mw-7w3h. Configure trust proxy for the actual topology and restrict direct connections when trusting a hop count. Never use unvalidated X-Forwarded-For as the rate-limit identity. This core installs neither Express nor proxy-addr.
 
 [proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)
+
+## Conditional indicators
+
+README badges use local SVGs generated from the official GitHub API. Stars
+and Forks appear independently only above zero. Missing releases and pending
+or failed CI produce no badge; full results remain in Actions. badges.yml
+refreshes after CI, a release, star/fork and every six hours, or manually.
+An open page does not change instantly: reload after the automatic commit.
+GitHub may delay schedules or disable them after inactivity; check Actions.
+Transient API errors stop the update and preserve the last valid block.
+The temporary token publishes only README blocks and SVGs, never private data.

@@ -6,6 +6,10 @@
 
 # escudo-express
 
+<!-- public-badges:start -->
+[![license](assets/support/badge-license.svg)](LICENSE) [![CI](assets/support/badge-ci.svg)](https://github.com/Rdraim/escudo-express/actions) [![release](assets/support/badge-release.svg)](https://github.com/Rdraim/escudo-express/releases)
+<!-- public-badges:end -->
+
 ## Segurança e compatibilidade
 
 IP sem confiança em header bruto, janela fixa e memória limitada.
