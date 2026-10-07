@@ -1,6 +1,6 @@
 # escudo-express
 
-[Brazilian Portuguese](README.md) · [Voluntary support](SUPPORT.md)
+[Brazilian Portuguese](README.md) · [Voluntary support](SUPPORT.en-US.md)
 
 A fixed-window rate limiter and response-failure counter for a single Node.js process.
 
@@ -42,7 +42,7 @@ These standalone modules are inspired by work on Nexus, Rodrigo Rodrigues's inde
 
 No raw proxy-header trust, fixed windows and bounded memory.
 
-[Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Voluntary support](SUPPORT.md)
+[Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Voluntary support](SUPPORT.en-US.md)
 
 MIT © Rodrigo Rodrigues
 
@@ -54,3 +54,10 @@ Official reference: https://expressjs.com/en/guide/behind-proxies/
 A store returning a Promise is rejected and the middleware responds with 503. Observer failures do not bypass blocking or crash the completion event. The memory store remains single-instance.
 
 Runnable example with synthetic data: `node examples/uso.mjs`.
+
+
+## ☕ Support this work
+
+If this project helped you, consider buying me a coffee. Any amount is welcome, and sharing your feedback helps too.
+
+[![Support via Pix](assets/support/pix-en-us.svg)](SUPPORT.en-US.md)

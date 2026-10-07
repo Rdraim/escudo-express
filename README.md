@@ -86,3 +86,10 @@ Referência oficial: https://expressjs.com/en/guide/behind-proxies/
 Loja que retorna Promise é rejeitada e o middleware responde 503. Falhas em observadores não impedem o bloqueio nem derrubam o evento de conclusão. Loja em memória continua limitada a uma instância.
 
 Exemplo executável com dados sintéticos: `node examples/uso.mjs`.
+
+
+## ☕ Apoie este trabalho
+
+Se este projeto te ajudou, considere me pagar um café. Qualquer valor é bem-vindo, e seu comentário também ajuda.
+
+[![Apoiar com Pix](assets/support/pix-pt-br.svg)](SUPPORT.md)
