@@ -25,3 +25,15 @@ Versões consultadas no registro oficial npm; sem engines declarado não signifi
 O consumidor Express deve resolver proxy-addr >=2.0.8 dentro da sua faixa compatível; essa versão corrige GHSA-jqcg-44mw-7w3h. Configure trust proxy para a topologia real e restrinja conexões diretas quando confiar em um número de saltos. Nunca use X-Forwarded-For não validado como identidade do limitador. O núcleo deste projeto não instala Express nem proxy-addr.
 
 [proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)
+
+## Indicadores condicionais
+
+O README usa SVGs locais gerados a partir da API oficial do GitHub. Stars e
+Forks são independentes e só aparecem acima de zero. Release ausente ou CI
+pendente/falho não gera badge; os resultados completos permanecem em Actions.
+O workflow badges.yml atualiza após CI, release, estrela/fork e a cada seis
+horas, além da execução manual. Não há troca instantânea em uma página já
+aberta: recarregue após o commit automático. A agenda pode atrasar ou ser
+desativada pelo GitHub por inatividade; consulte Actions nesse caso. Falha
+transitória da API interrompe a atualização, preservando o último bloco válido.
+O token temporário só publica README e SVGs, nunca dados privados.

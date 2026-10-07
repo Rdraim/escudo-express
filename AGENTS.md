@@ -13,3 +13,5 @@
 - O apoio fica no final de cada README. Doações são opcionais; o dono autorizou a chave Pix e o QR original em 07/10/2026. Preserve os assets aprovados; não invente outros dados de pagamento nem publique dados operacionais ou de usuários.
 - Interface: ícones acessíveis sem moldura e com dicas; campos proporcionais; layout responsivo; temas claro/escuro; teclado, rolagem e minimizar/restaurar preservando campos.
 - Generalize e revise mudanças inspiradas no Nexus; não presuma importação automática das bibliotecas públicas no sistema.
+
+- Badges condicionais: Stars/Forks somente acima de zero, CI somente aprovado e Release somente publicada. Não exiba erros vermelhos no README; mantenha diagnóstico real em Actions. Atualização via tools/update-badges.mjs e workflow badges.yml, sem JavaScript no README.
