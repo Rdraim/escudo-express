@@ -1,0 +1,15 @@
+{
+  "name": "escudo-express",
+  "version": "1.0.0",
+  "description": "Limite de taxa e deteccao de abuso (brute force / varredura) num middleware Express. Nucleo puro e testavel, loja plugavel. Zero dependencias.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "files": ["src"],
+  "scripts": { "test": "node --test" },
+  "keywords": ["rate-limit", "security", "brute-force", "express", "middleware", "ddos", "seguranca", "owasp"],
+  "author": "Rodrigo Rodrigues",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "repository": { "type": "git", "url": "git+https://github.com/techrodrigo21-ux/escudo-express.git" }
+}
