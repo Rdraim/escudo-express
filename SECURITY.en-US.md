@@ -4,10 +4,10 @@
   <a href="SECURITY.es-AR.md"><img src="assets/support/flag-es-ar.svg" width="36" height="24" alt="Español (Argentina)" title="Español (Argentina)"></a>
 </p>
 
-# Segurança
+# Security
 
-Nunca publique segredos ou dados reais em Issues. Se a opção “Report a vulnerability” estiver disponível na aba Security do GitHub, use esse canal privado. Caso contrário, solicite um contato privado em uma Issue sem detalhes exploráveis.
+Never disclose secrets or real data in Issues. If “Report a vulnerability” is available under GitHub Security, use that private channel. Otherwise request a private contact in an Issue without exploit details.
 
-Use reprodução sintética e descreva impacto, versão e ambiente. A biblioteca não é certificação de segurança.
+Use a synthetic reproduction and describe impact, version and environment. The library is not a security certification.
 
-[Voltar ao projeto](README.md) · [Como contribuir](CONTRIBUTING.md)
+[Back to the project](README.en-US.md) · [Contributing](CONTRIBUTING.en-US.md)
