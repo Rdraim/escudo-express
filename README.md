@@ -7,7 +7,7 @@
 # escudo-express
 
 <!-- public-badges:start -->
-[![license](assets/support/badge-license.svg)](LICENSE) [![CI](assets/support/badge-ci.svg)](https://github.com/Rdraim/escudo-express/actions) [![release](assets/support/badge-release.svg)](https://github.com/Rdraim/escudo-express/releases)
+[![license](assets/support/badge-license.svg)](LICENSE) [![CI](assets/support/badge-ci.svg)](https://github.com/Rdraim/escudo-express/actions) [![release](assets/support/badge-release.svg)](https://github.com/Rdraim/escudo-express/releases) [![Git](assets/support/badge-git.svg)](https://github.com/Rdraim/escudo-express/commits/main)
 <!-- public-badges:end -->
 
 ## Segurança e compatibilidade

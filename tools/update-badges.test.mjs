@@ -19,3 +19,8 @@ test('release text is escaped inside SVG',()=>{
  const svg=badgeSvg({label:'release',value:'<script>&"',color:'#087ca7'});
  assert.ok(!svg.includes('<script>'));assert.ok(svg.includes('&lt;script&gt;&amp;&quot;'));
 });
+
+test('Git metadata appears only with a valid timestamp',()=>{
+ assert.ok(visibleBadges({...repo,pushed_at:'2026-01-02T10:00:00Z'},null,null).some(x=>x.key==='git' && x.value==='2026-01-02'));
+ assert.ok(!visibleBadges({...repo,pushed_at:'invalid'},null,null).some(x=>x.key==='git'));
+});
