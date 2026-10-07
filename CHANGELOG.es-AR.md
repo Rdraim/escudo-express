@@ -6,6 +6,10 @@
 
 # 1.2.0 — 2026-10-07
 
+## 1.2.1 — 2026-10-07
+
+Identidad Rdraim, presentación gráfica, revisión de compatibilidad y control de historial más eficiente. API de ejecución conservada.
+
 Si un almacén devuelve una Promise, se rechaza y el middleware responde 503. Los fallos de los observadores no omiten bloqueos ni interrumpen el evento de finalización. El almacén de memoria sigue siendo de una sola instancia.
 
 # 1.1.0 — 2026-10-07

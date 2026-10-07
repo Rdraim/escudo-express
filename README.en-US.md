@@ -13,13 +13,13 @@ A fixed-window rate limiter and response-failure counter for a single Node.js pr
 Requires Git and Node.js 22+ for tests. No runtime dependencies. Download the actual repository rather than an unverified same-name npm package.
 
 ```sh
-git clone https://github.com/techrodrigo21-ux/escudo-express.git
+git clone https://github.com/Rdraim/escudo-express.git
 cd escudo-express
 npm test
 node tools/check-public-content.mjs
 ```
 
-These imports work from the cloned repository root. To use the module in another project, install a pinned Git tag (v1.2.0) or copy the module while retaining the MIT license. This documentation does not claim an npm registry release.
+These imports work from the cloned repository root. To use the module in another project, install a pinned Git tag (v1.2.1) or copy the module while retaining the MIT license. This documentation does not claim an npm registry release.
 
 ```js
 import { Limitador, escudo } from './src/index.js';
@@ -75,7 +75,7 @@ I’m **Rodrigo Rodrigues**, creator of **Nexus** and these open source projects
 
 <p>
   <a href="#support-via-pix"><img src="assets/support/pix-en-us.svg" width="190" height="44" alt="Support via Pix"></a>
-  <a href="https://github.com/techrodrigo21-ux/escudo-express/issues/new?title=Feedback%3A%20this%20project%20helped%20me"><img src="assets/support/comment-en-us.svg" width="210" height="44" alt="Leave a comment"></a>
+  <a href="https://github.com/Rdraim/escudo-express/issues/new?title=Feedback%3A%20this%20project%20helped%20me"><img src="assets/support/comment-en-us.svg" width="210" height="44" alt="Leave a comment"></a>
 </p>
 
 ### Support via Pix
@@ -96,7 +96,7 @@ Pix is Brazil’s payment system. If your bank does not support it, you can stil
 
 ### Your feedback matters, too
 
-[Tell me how the project helped you](https://github.com/techrodrigo21-ux/escudo-express/issues/new?title=Feedback%3A%20this%20project%20helped%20me). I’d love to hear what you built, what you learned, and what could be clearer for someone just starting out.
+[Tell me how the project helped you](https://github.com/Rdraim/escudo-express/issues/new?title=Feedback%3A%20this%20project%20helped%20me). I’d love to hear what you built, what you learned, and what could be clearer for someone just starting out.
 
 A comment is welcome with or without a donation. Please keep payment receipts, personal details, credentials and private user data out of public Issues.
 

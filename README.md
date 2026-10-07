@@ -12,7 +12,7 @@ IP sem confiança em header bruto, janela fixa e memória limitada.
 
 Bloqueia ao EXCEDER `maxReq` ou `maxFalhas` (a tentativa N+1); a janela não se prolonga a cada acesso. Falhas 401/403/404/429 são sinais, não prova de ataque. Por padrão usa `req.ip` calculado pelo Express ou IP do socket, nunca `X-Forwarded-For` bruto. Configure proxies confiáveis conforme sua topologia. Loja síncrona em memória, teto de 10000 entradas; esgotamento lança erro sem remover bloqueios ativos. Encaminhe erros para tratamento 503 e monitore capacidade. Não há adaptador Redis, atomicidade distribuída ou proteção entre processos; não passe Promises como loja. Reiniciar limpa limites.
 
-Baixe pelo GitHub; não é necessário instalar um pacote homônimo do npm. Para consumir em outro projeto, use uma revisão Git fixada (tag v1.2.0) ou copie o módulo e preserve a licença. Os exemplos abaixo usam importação local após o clone. Node.js 22 ou superior para os testes.
+Baixe pelo GitHub; não é necessário instalar um pacote homônimo do npm. Para consumir em outro projeto, use uma revisão Git fixada (tag v1.2.1) ou copie o módulo e preserve a licença. Os exemplos abaixo usam importação local após o clone. Node.js 22 ou superior para os testes.
 
 Limite de taxa **e** detecção de abuso num só middleware para Express/Connect.
 Sem dependências.
@@ -30,7 +30,7 @@ testar e de portar. A loja é plugável (padrão em memória; a interface atual 
 ## Instalação
 
 ```bash
-git clone https://github.com/techrodrigo21-ux/escudo-express.git
+git clone https://github.com/Rdraim/escudo-express.git
 cd escudo-express
 npm test
 ```
@@ -107,7 +107,7 @@ Sou **Rodrigo Rodrigues**, criador do **Nexus** e destes projetos de código abe
 
 <p>
   <a href="#apoie-com-pix"><img src="assets/support/pix-pt-br.svg" width="190" height="44" alt="Apoiar com Pix"></a>
-  <a href="https://github.com/techrodrigo21-ux/escudo-express/issues/new?title=Coment%C3%A1rio%3A%20este%20projeto%20me%20ajudou"><img src="assets/support/comment-pt-br.svg" width="210" height="44" alt="Deixar um comentário"></a>
+  <a href="https://github.com/Rdraim/escudo-express/issues/new?title=Coment%C3%A1rio%3A%20este%20projeto%20me%20ajudou"><img src="assets/support/comment-pt-br.svg" width="210" height="44" alt="Deixar um comentário"></a>
 </p>
 
 ### Apoie com Pix
@@ -128,7 +128,7 @@ Você também pode apoiar compartilhando o projeto, relatando um problema, melho
 
 ### Seu comentário também faz diferença
 
-[Conte como o projeto te ajudou](https://github.com/techrodrigo21-ux/escudo-express/issues/new?title=Coment%C3%A1rio%3A%20este%20projeto%20me%20ajudou). Vou gostar de saber o que você criou, o que aprendeu e o que poderia ficar mais claro para quem está começando.
+[Conte como o projeto te ajudou](https://github.com/Rdraim/escudo-express/issues/new?title=Coment%C3%A1rio%3A%20este%20projeto%20me%20ajudou). Vou gostar de saber o que você criou, o que aprendeu e o que poderia ficar mais claro para quem está começando.
 
 O comentário é bem-vindo com ou sem doação. Preserve sua privacidade: não publique comprovantes, dados pessoais, credenciais ou informações de usuários nas Issues.
 
