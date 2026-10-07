@@ -21,3 +21,7 @@ Pacotes opcionais são adaptadores, não dependências obrigatórias. Verifique 
 | [express](https://www.npmjs.com/package/express/v/5.2.1) | 5.2.1 | >= 18 | MIT |
 
 Versões consultadas no registro oficial npm; sem engines declarado não significa compatibilidade garantida. Adaptadores opcionais não foram instalados nem validados contra serviços reais. Núcleo testado separadamente.
+
+O consumidor Express deve resolver proxy-addr >=2.0.8 dentro da sua faixa compatível; essa versão corrige GHSA-jqcg-44mw-7w3h. Configure trust proxy para a topologia real e restrinja conexões diretas quando confiar em um número de saltos. Nunca use X-Forwarded-For não validado como identidade do limitador. O núcleo deste projeto não instala Express nem proxy-addr.
+
+[proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)

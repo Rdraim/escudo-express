@@ -6,6 +6,10 @@
 
 # 1.2.0 — 2026-10-07
 
+## 1.2.2 — 2026-10-07
+
+O consumidor Express deve resolver proxy-addr >=2.0.8 dentro da sua faixa compatível; essa versão corrige GHSA-jqcg-44mw-7w3h. Configure trust proxy para a topologia real e restrinja conexões diretas quando confiar em um número de saltos. Nunca use X-Forwarded-For não validado como identidade do limitador. O núcleo deste projeto não instala Express nem proxy-addr.
+
 ## 1.2.1 — 2026-10-07
 
 Identidade Rdraim, apresentação gráfica, revisão de compatibilidade e guarda do histórico mais eficiente. API de runtime preservada.
