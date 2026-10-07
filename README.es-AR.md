@@ -52,7 +52,7 @@ Ejemplo ejecutable con datos sintéticos: `node examples/uso.mjs`.
 
 Estos módulos independientes se inspiran en problemas resueltos en Nexus, proyecto de Rodrigo Rodrigues. No incluyen bases privadas, configuración de despliegue, logs, credenciales ni registros de usuarios. El mantenimiento coordinado consiste en revisar cambios relacionados en el mismo ciclo; no copia automáticamente archivos privados.
 
-[Cómo contribuir](CONTRIBUTING.md) · [Seguridad](SECURITY.md)
+[Cómo contribuir](CONTRIBUTING.es-AR.md) · [Seguridad](SECURITY.es-AR.md)
 
 MIT © Rodrigo Rodrigues
 

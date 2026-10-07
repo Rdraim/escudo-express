@@ -4,8 +4,8 @@
   <a href="SUPPORT.es-AR.md"><img src="assets/support/flag-es-ar.svg" width="36" height="24" alt="Español (Argentina)" title="Español (Argentina)"></a>
 </p>
 
-# Voluntary support
+# Apoyo voluntario
 
-Support is part of the project documentation footer.
+El apoyo está integrado al final de la documentación del proyecto.
 
-[☕ Buy me a coffee](README.en-US.md#-buy-me-a-coffee)
+[☕ Invitame un café](README.es-AR.md#-invitame-un-café)

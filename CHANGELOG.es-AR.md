@@ -6,10 +6,10 @@
 
 # 1.2.0 — 2026-10-07
 
-Loja que retorna Promise é rejeitada e o middleware responde 503. Falhas em observadores não impedem o bloqueio nem derrubam o evento de conclusão. Loja em memória continua limitada a uma instância.
+Si un almacén devuelve una Promise, se rechaza y el middleware responde 503. Los fallos de los observadores no omiten bloqueos ni interrumpen el evento de finalización. El almacén de memoria sigue siendo de una sola instancia.
 
 # 1.1.0 — 2026-10-07
 
-IP sem confiança em header bruto, janela fixa e memória limitada.
+Sin confianza directa en cabeceras de proxy, con ventanas fijas y memoria limitada.
 
-Documentação PT-BR/EN-US, apoio voluntário ainda sem canal de pagamento e verificações de publicação.
+Documentación en portugués brasileño e inglés de Estados Unidos, apoyo voluntario todavía sin canal de pago en esa versión y verificaciones de publicación.
