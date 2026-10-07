@@ -2,13 +2,13 @@
 
 [English (United States)](README.en-US.md) · [Apoio voluntário](SUPPORT.md)
 
-## Revisão 1.1.0
+## Segurança e compatibilidade
 
 IP sem confiança em header bruto, janela fixa e memória limitada.
 
 Bloqueia ao EXCEDER `maxReq` ou `maxFalhas` (a tentativa N+1); a janela não se prolonga a cada acesso. Falhas 401/403/404/429 são sinais, não prova de ataque. Por padrão usa `req.ip` calculado pelo Express ou IP do socket, nunca `X-Forwarded-For` bruto. Configure proxies confiáveis conforme sua topologia. Loja síncrona em memória, teto de 10000 entradas; esgotamento lança erro sem remover bloqueios ativos. Encaminhe erros para tratamento 503 e monitore capacidade. Não há adaptador Redis, atomicidade distribuída ou proteção entre processos; não passe Promises como loja. Reiniciar limpa limites.
 
-Baixe pelo GitHub; não é necessário instalar um pacote homônimo do npm. Para consumir em outro projeto, use uma revisão Git fixada (tag v1.1.0) ou copie o módulo e preserve a licença. Os exemplos abaixo usam importação local após o clone. Node.js 22 ou superior para os testes.
+Baixe pelo GitHub; não é necessário instalar um pacote homônimo do npm. Para consumir em outro projeto, use uma revisão Git fixada (tag v1.2.0) ou copie o módulo e preserve a licença. Os exemplos abaixo usam importação local após o clone. Node.js 22 ou superior para os testes.
 
 Limite de taxa **e** detecção de abuso num só middleware para Express/Connect.
 Sem dependências.
