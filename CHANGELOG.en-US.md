@@ -6,6 +6,10 @@
 
 # 1.2.0 — 2026-10-07
 
+## 1.2.1 — 2026-10-07
+
+Rdraim identity, visual presentation, compatibility review and more efficient history guard. Runtime API preserved.
+
 A store returning a Promise is rejected and the middleware responds with 503. Observer failures do not bypass blocking or crash the completion event. The memory store remains single-instance.
 
 # 1.1.0 — 2026-10-07

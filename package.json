@@ -1,6 +1,6 @@
 {
   "name": "escudo-express",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A fixed-window rate limiter and response-failure counter for a single Node.js process.",
   "type": "module",
   "main": "src/index.js",
@@ -31,6 +31,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/techrodrigo21-ux/escudo-express.git"
+    "url": "git+https://github.com/Rdraim/escudo-express.git"
   }
 }
