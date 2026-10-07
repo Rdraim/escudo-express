@@ -79,3 +79,10 @@ Código independente inspirado em problemas resolvidos no Nexus, projeto de Rodr
 [Como contribuir](CONTRIBUTING.md) · [Segurança](SECURITY.md) · [Apoio voluntário](SUPPORT.md)
 
 Referência oficial: https://expressjs.com/en/guide/behind-proxies/
+
+
+## Uso prático — 1.2.0
+
+Loja que retorna Promise é rejeitada e o middleware responde 503. Falhas em observadores não impedem o bloqueio nem derrubam o evento de conclusão. Loja em memória continua limitada a uma instância.
+
+Exemplo executável com dados sintéticos: `node examples/uso.mjs`.

@@ -47,3 +47,10 @@ No raw proxy-header trust, fixed windows and bounded memory.
 MIT © Rodrigo Rodrigues
 
 Official reference: https://expressjs.com/en/guide/behind-proxies/
+
+
+## Practical use — 1.2.0
+
+A store returning a Promise is rejected and the middleware responds with 503. Observer failures do not bypass blocking or crash the completion event. The memory store remains single-instance.
+
+Runnable example with synthetic data: `node examples/uso.mjs`.

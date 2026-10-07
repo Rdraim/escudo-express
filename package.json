@@ -1,6 +1,6 @@
 {
   "name": "escudo-express",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A fixed-window rate limiter and response-failure counter for a single Node.js process.",
   "type": "module",
   "main": "src/index.js",
@@ -11,7 +11,8 @@
   "scripts": {
     "test": "node --test",
     "check:public": "node tools/check-public-content.mjs",
-    "check": "node --check src/index.js"
+    "check": "node --check src/index.js",
+    "example": "node examples/uso.mjs"
   },
   "keywords": [
     "rate-limit",

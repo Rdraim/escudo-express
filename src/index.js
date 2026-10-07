@@ -30,6 +30,14 @@ export class MemoriaTTL {
 }
 
 /** Núcleo puro: decide se a chave passa, e contabiliza falhas. */
+function sincrono(valor) {
+  if (valor && typeof valor.then === 'function') {
+    // Evita rejeição não tratada de uma Promise entregue por loja incompatível.
+    Promise.resolve(valor).catch(() => {});
+    throw new TypeError('a loja precisa ser síncrona; Promises não são suportadas');
+  }
+  return valor;
+}
 export class Limitador {
   constructor({ janelaMs = 60000, maxReq = 100, maxFalhas = 10, bloqueioMs = 900000, loja = new MemoriaTTL(), agora = () => Date.now() } = {}) {
     for (const [nome, valor] of Object.entries({ janelaMs, maxReq, maxFalhas, bloqueioMs })) {
@@ -38,13 +46,13 @@ export class Limitador {
     if (typeof agora !== 'function' || typeof loja.obter !== 'function' || typeof loja.definir !== 'function') throw new TypeError('loja/relógio inválidos');
     Object.assign(this, { janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora });
   }
-  _reg(chave) { return this.loja.obter(`r:${chave}`, this.agora()) || { reqs: 0, falhas: 0, exp: this.agora() + this.janelaMs }; }
-  _salvar(chave, reg) { this.loja.definir(`r:${chave}`, reg, Math.max(1, reg.exp - this.agora()), this.agora()); }
+  _reg(chave) { return sincrono(this.loja.obter(`r:${chave}`, this.agora())) || { reqs: 0, falhas: 0, exp: this.agora() + this.janelaMs }; }
+  _salvar(chave, reg) { sincrono(this.loja.definir(`r:${chave}`, reg, Math.max(1, reg.exp - this.agora()), this.agora())); }
 
   /** Chamar a cada requisição. Devolve { permitido, motivo, restante, retryMs }. */
   checar(chave) {
     const t = this.agora();
-    const bloqExp = this.loja.obter(`b:${chave}`, t);
+    const bloqExp = sincrono(this.loja.obter(`b:${chave}`, t));
     if (bloqExp) return { permitido: false, motivo: 'bloqueado', restante: 0, retryMs: bloqExp - t };
     const reg = this._reg(chave);
     reg.reqs += 1;
@@ -61,8 +69,8 @@ export class Limitador {
     if (reg.falhas > this.maxFalhas) { this._bloquear(chave); return true; }
     return false;
   }
-  _bloquear(chave) { this.loja.definir(`b:${chave}`, this.agora() + this.bloqueioMs, this.bloqueioMs, this.agora()); }
-  estaBloqueada(chave) { return !!this.loja.obter(`b:${chave}`, this.agora()); }
+  _bloquear(chave) { sincrono(this.loja.definir(`b:${chave}`, this.agora() + this.bloqueioMs, this.bloqueioMs, this.agora())); }
+  estaBloqueada(chave) { return !!sincrono(this.loja.obter(`b:${chave}`, this.agora())); }
 }
 
 // req.ip é calculado pelo Express conforme trust proxy; nunca ler XFF bruto.
@@ -74,26 +82,35 @@ const FALHAS = new Set([401, 403, 404, 429]);
  */
 export function escudo(opcoes = {}) {
   const { chave = ipDe, aoBloquear, aoErro, ...resto } = opcoes;
+  if (typeof chave !== 'function' || [aoBloquear, aoErro].some((f) => f != null && typeof f !== 'function')) throw new TypeError('callbacks inválidos');
+  const informarErro = (erro) => {
+    try {
+      const resultado = aoErro?.(erro);
+      if (resultado && typeof resultado.then === 'function') Promise.resolve(resultado).catch(() => {});
+    } catch { /* observador não derruba a proteção */ }
+  };
   const lim = new Limitador(resto);
   return function escudoMiddleware(req, res, next) {
-    const k = chave(req);
-    let r;
-    try { r = lim.checar(k); }
+    let r, k;
+    try { k = sincrono(chave(req)); r = lim.checar(k); }
     catch (erro) {
-      aoErro?.(erro);
+      informarErro(erro);
       res.statusCode = 503;
       return res.end ? res.end('Service Unavailable') : next(erro);
     }
     res.setHeader && res.setHeader('X-RateLimit-Remaining', String(r.restante));
     if (!r.permitido) {
-      aoBloquear && aoBloquear(req, r);
+      try {
+        const resultado = aoBloquear?.(req, r);
+        if (resultado && typeof resultado.then === 'function') Promise.resolve(resultado).catch(informarErro);
+      } catch (erro) { informarErro(erro); }
       res.setHeader && res.setHeader('Retry-After', String(Math.ceil(r.retryMs / 1000)));
       res.statusCode = 429;
       return res.end ? res.end('Too Many Requests') : next(new Error('rate-limited'));
     }
     res.on && res.on('finish', () => {
       if (!FALHAS.has(res.statusCode)) return;
-      try { lim.registrarFalha(k); } catch (erro) { aoErro?.(erro); }
+      try { lim.registrarFalha(k); } catch (erro) { informarErro(erro); }
     });
     next();
   };
