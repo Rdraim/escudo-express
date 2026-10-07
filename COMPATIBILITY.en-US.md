@@ -21,3 +21,7 @@ Optional packages belong in adapters, not mandatory core dependencies. Verify th
 | [express](https://www.npmjs.com/package/express/v/5.2.1) | 5.2.1 | >= 18 | MIT |
 
 Versions queried from the official npm registry; no declared engine does not guarantee compatibility. Optional adapters were not installed or validated against real services. The core is tested separately.
+
+Express consumers must resolve proxy-addr >=2.0.8 within their compatible range; this release fixes GHSA-jqcg-44mw-7w3h. Configure trust proxy for the actual topology and restrict direct connections when trusting a hop count. Never use unvalidated X-Forwarded-For as the rate-limit identity. This core installs neither Express nor proxy-addr.
+
+[proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)
