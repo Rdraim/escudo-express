@@ -26,6 +26,10 @@ Express consumers must resolve proxy-addr >=2.0.8 within their compatible range;
 
 [proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)
 
+## Per-instance prefix (1.3.0, 2026-11-18)
+
+New, optional option. The `''` default writes the same `r:<key>` and `b:<key>` keys as 1.2.x, with no migration: custom stores holding older data remain valid. When you adopt `prefixo` on a store already in use, that instance stops reading the counts and blocks written without a prefix, which then expire by TTL. A prefix that is not text or that contains `:` is rejected with `TypeError` at construction. Instances that share the same store each need their own prefix.
+
 ## Conditional indicators
 
 README badges use local SVGs generated from the official GitHub API. Stars

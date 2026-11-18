@@ -4,6 +4,10 @@
   <a href="CHANGELOG.es-AR.md"><img src="assets/support/flag-es-ar.svg" width="36" height="24" alt="Español (Argentina)" title="Español (Argentina)"></a>
 </p>
 
+# 1.3.0 — 2026-11-18
+
+New `prefixo` option on `Limitador` and `escudo()` for instances that share the same store. Without it, a general limit and a tighter one (for example, login) mounted on the same store added up their counts and shared their blocks, so the tighter one arrived already exhausted. With a prefix, keys become `<prefix>|r:<key>` and `<prefix>|b:<key>`; the prefix rejects `:` and an invalid prefix throws `TypeError`. The `''` default keeps the `r:<key>` and `b:<key>` keys and the 1.2.x behavior. When sharing a store between instances, give each one its own prefix. No new persistence and no change to the synchronous store interface.
+
 # 1.2.0 — 2026-10-07
 
 ## 1.2.2 — 2026-10-07

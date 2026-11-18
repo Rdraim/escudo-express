@@ -34,9 +34,35 @@ console.log(limiter.checar('clave-sintetica'));
 
 ## API
 
-`Limitador({ janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora })`; `checar`, `registrarFalha`, `estaBloqueada`; `MemoriaTTL({ maxEntradas })`; `escudo({ chave, aoBloquear, aoErro, ...opcoes })`.
+`Limitador({ janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora, prefixo })`; `checar`, `registrarFalha`, `estaBloqueada`; `MemoriaTTL({ maxEntradas })`; `escudo({ chave, aoBloquear, aoErro, ...opcoes })`.
 
 Los nombres públicos de funciones y opciones se mantienen en portugués por compatibilidad.
+
+| Opción | Predeterminado | Uso |
+|---|---|---|
+| `janelaMs` | `60000` | Duración de la ventana fija, en ms. |
+| `maxReq` | `100` | Solicitudes permitidas por clave en la ventana. |
+| `maxFalhas` | `10` | Fallos 401/403/404/429 tolerados en la ventana. |
+| `bloqueioMs` | `900000` | Duración del bloqueo, en ms. |
+| `loja` | nueva `MemoriaTTL()` | Almacén síncrono `{ obter, definir }`. |
+| `prefixo` | `''` | Separa instancias que comparten el mismo almacén (`loja`). Texto sin `:`. |
+| `agora` | `Date.now` | Reloj inyectable (pruebas). |
+| `chave(req)` | `req.ip` | Solo en `escudo()`: identidad del origen. |
+| `aoBloquear(req, info)`, `aoErro(error)` | — | Solo en `escudo()`: observadores opcionales. |
+
+## Almacén compartido entre instancias
+
+Por defecto, cada `escudo()` o `Limitador` crea su propio almacén en memoria y queda aislado. Si pasás el MISMO almacén (`loja`) a más de una instancia (por ejemplo, un límite general y otro más estricto solo para el login), dale a cada una su propio `prefixo`. Sin prefijo, las instancias suman sus conteos y comparten los bloqueos: el límite estricto llega ya agotado por el tráfico general, y el bloqueo de una también vale para la otra.
+
+```js
+import { escudo, MemoriaTTL } from './src/index.js';
+
+const loja = new MemoriaTTL({ maxEntradas: 20_000 });
+app.use(escudo({ loja, prefixo: 'general', maxReq: 600 }));
+app.post('/login', escudo({ loja, prefixo: 'login', maxReq: 10, maxFalhas: 5 }), ingresar);
+```
+
+El valor predeterminado `''` graba las claves `r:<clave>` y `b:<clave>` igual que en las versiones anteriores. Con prefijo pasan a ser `<prefijo>|r:<clave>` y `<prefijo>|b:<clave>`; como el prefijo no admite `:`, dos prefijos distintos nunca generan la misma clave. La capacidad `maxEntradas` de un almacén compartido se reparte entre todas las instancias.
 
 ## Comportamiento y límites
 

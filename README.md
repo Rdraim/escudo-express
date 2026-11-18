@@ -58,6 +58,34 @@ app.use(escudo({
 Atrás de proxy, configure apenas proxies confiáveis conforme sua topologia, ou passe sua
 própria função `chave(req)` (ex.: por usuário autenticado).
 
+## Opções
+
+| Opção | Padrão | Uso |
+|---|---|---|
+| `janelaMs` | `60000` | Duração da janela fixa, em ms. |
+| `maxReq` | `100` | Requisições permitidas por chave na janela. |
+| `maxFalhas` | `10` | Falhas 401/403/404/429 toleradas na janela. |
+| `bloqueioMs` | `900000` | Duração do bloqueio, em ms. |
+| `loja` | nova `MemoriaTTL()` | Loja síncrona `{ obter, definir }`. |
+| `prefixo` | `''` | Separa instâncias que compartilham a mesma `loja`. Texto sem `:`. |
+| `agora` | `Date.now` | Relógio injetável (testes). |
+| `chave(req)` | `req.ip` | Só no `escudo()`: identidade da origem. |
+| `aoBloquear(req, info)`, `aoErro(erro)` | — | Só no `escudo()`: observadores opcionais. |
+
+## Loja compartilhada entre instâncias
+
+Cada `escudo()` ou `Limitador` cria por padrão a própria loja em memória e fica isolado. Se você passar a MESMA `loja` a mais de uma instância (ex.: um limite geral e outro mais apertado só para o login), dê a cada uma um `prefixo` próprio. Sem prefixo, as instâncias somam as contagens e dividem os bloqueios: o limite apertado já chega estourado pelo tráfego do geral, e o bloqueio de uma vale também para a outra.
+
+```js
+import { escudo, MemoriaTTL } from './src/index.js';
+
+const loja = new MemoriaTTL({ maxEntradas: 20_000 });
+app.use(escudo({ loja, prefixo: 'geral', maxReq: 600 }));
+app.post('/login', escudo({ loja, prefixo: 'login', maxReq: 10, maxFalhas: 5 }), entrar);
+```
+
+O padrão `''` grava as chaves `r:<chave>` e `b:<chave>` exatamente como nas versões anteriores. Com prefixo, elas viram `<prefixo>|r:<chave>` e `<prefixo>|b:<chave>`; como o prefixo não aceita `:`, dois prefixos diferentes nunca geram a mesma chave. A capacidade `maxEntradas` de uma loja compartilhada é dividida entre todas as instâncias.
+
 ## Núcleo testável
 
 ```js

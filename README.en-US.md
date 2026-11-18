@@ -34,9 +34,35 @@ console.log(limiter.checar('synthetic-key'));
 
 ## API
 
-`Limitador({ janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora })`; `checar`, `registrarFalha`, `estaBloqueada`; `MemoriaTTL({ maxEntradas })`; `escudo({ chave, aoBloquear, aoErro, ...opcoes })`.
+`Limitador({ janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora, prefixo })`; `checar`, `registrarFalha`, `estaBloqueada`; `MemoriaTTL({ maxEntradas })`; `escudo({ chave, aoBloquear, aoErro, ...opcoes })`.
 
 Public function and option names remain in Portuguese for compatibility.
+
+| Option | Default | Purpose |
+|---|---|---|
+| `janelaMs` | `60000` | Fixed window length, in ms. |
+| `maxReq` | `100` | Requests allowed per key in the window. |
+| `maxFalhas` | `10` | 401/403/404/429 failures tolerated in the window. |
+| `bloqueioMs` | `900000` | Block duration, in ms. |
+| `loja` | new `MemoriaTTL()` | Synchronous `{ obter, definir }` store. |
+| `prefixo` | `''` | Separates instances that share the same `loja`. Text without `:`. |
+| `agora` | `Date.now` | Injectable clock (tests). |
+| `chave(req)` | `req.ip` | `escudo()` only: source identity. |
+| `aoBloquear(req, info)`, `aoErro(error)` | — | `escudo()` only: optional observers. |
+
+## Sharing a store between instances
+
+By default every `escudo()` or `Limitador` creates its own memory store and stays isolated. If you pass the SAME store (`loja`) to more than one instance (for example, a general limit and a tighter one just for login), give each one its own `prefixo`. Without a prefix, the instances add up their counts and share their blocks: the tight limit arrives already exhausted by general traffic, and a block from one also applies to the other.
+
+```js
+import { escudo, MemoriaTTL } from './src/index.js';
+
+const loja = new MemoriaTTL({ maxEntradas: 20_000 });
+app.use(escudo({ loja, prefixo: 'general', maxReq: 600 }));
+app.post('/login', escudo({ loja, prefixo: 'login', maxReq: 10, maxFalhas: 5 }), signIn);
+```
+
+The `''` default writes the keys `r:<key>` and `b:<key>` exactly as earlier releases did. With a prefix they become `<prefix>|r:<key>` and `<prefix>|b:<key>`; because the prefix rejects `:`, two different prefixes never produce the same key. The `maxEntradas` capacity of a shared store is split among all instances.
 
 ## Behavior and limits
 
