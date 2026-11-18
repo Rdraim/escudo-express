@@ -38,21 +38,34 @@ function sincrono(valor) {
   }
   return valor;
 }
+/** `prefixo` separa instâncias que compartilham a mesma loja. Vazio (padrão)
+ *  mantém as chaves "r:<chave>" e "b:<chave>"; preenchido grava
+ *  "<prefixo>|r:<chave>" e "<prefixo>|b:<chave>". Como o prefixo não pode ter
+ *  ':', o primeiro ':' da chave gravada fica na posição 1 (sem prefixo) ou logo
+ *  depois de "<prefixo>|r" (com prefixo): prefixos distintos nunca geram a
+ *  mesma chave, qualquer que seja o texto de `chave`. */
+function espacoDe(prefixo) {
+  if (typeof prefixo !== 'string' || prefixo.includes(':')) throw new TypeError('prefixo precisa ser texto sem ":"');
+  return prefixo ? `${prefixo}|` : '';
+}
 export class Limitador {
-  constructor({ janelaMs = 60000, maxReq = 100, maxFalhas = 10, bloqueioMs = 900000, loja = new MemoriaTTL(), agora = () => Date.now() } = {}) {
+  constructor({ janelaMs = 60000, maxReq = 100, maxFalhas = 10, bloqueioMs = 900000, loja = new MemoriaTTL(), agora = () => Date.now(), prefixo = '' } = {}) {
     for (const [nome, valor] of Object.entries({ janelaMs, maxReq, maxFalhas, bloqueioMs })) {
       if (!Number.isSafeInteger(valor) || valor < 1) throw new TypeError(`${nome} precisa ser inteiro positivo`);
     }
     if (typeof agora !== 'function' || typeof loja.obter !== 'function' || typeof loja.definir !== 'function') throw new TypeError('loja/relógio inválidos');
-    Object.assign(this, { janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora });
+    const espaco = espacoDe(prefixo);
+    Object.assign(this, { janelaMs, maxReq, maxFalhas, bloqueioMs, loja, agora, prefixo, _espaco: espaco });
   }
-  _reg(chave) { return sincrono(this.loja.obter(`r:${chave}`, this.agora())) || { reqs: 0, falhas: 0, exp: this.agora() + this.janelaMs }; }
-  _salvar(chave, reg) { sincrono(this.loja.definir(`r:${chave}`, reg, Math.max(1, reg.exp - this.agora()), this.agora())); }
+  _kr(chave) { return `${this._espaco}r:${chave}`; }
+  _kb(chave) { return `${this._espaco}b:${chave}`; }
+  _reg(chave) { return sincrono(this.loja.obter(this._kr(chave), this.agora())) || { reqs: 0, falhas: 0, exp: this.agora() + this.janelaMs }; }
+  _salvar(chave, reg) { sincrono(this.loja.definir(this._kr(chave), reg, Math.max(1, reg.exp - this.agora()), this.agora())); }
 
   /** Chamar a cada requisição. Devolve { permitido, motivo, restante, retryMs }. */
   checar(chave) {
     const t = this.agora();
-    const bloqExp = sincrono(this.loja.obter(`b:${chave}`, t));
+    const bloqExp = sincrono(this.loja.obter(this._kb(chave), t));
     if (bloqExp) return { permitido: false, motivo: 'bloqueado', restante: 0, retryMs: bloqExp - t };
     const reg = this._reg(chave);
     reg.reqs += 1;
@@ -69,8 +82,8 @@ export class Limitador {
     if (reg.falhas > this.maxFalhas) { this._bloquear(chave); return true; }
     return false;
   }
-  _bloquear(chave) { sincrono(this.loja.definir(`b:${chave}`, this.agora() + this.bloqueioMs, this.bloqueioMs, this.agora())); }
-  estaBloqueada(chave) { return !!sincrono(this.loja.obter(`b:${chave}`, this.agora())); }
+  _bloquear(chave) { sincrono(this.loja.definir(this._kb(chave), this.agora() + this.bloqueioMs, this.bloqueioMs, this.agora())); }
+  estaBloqueada(chave) { return !!sincrono(this.loja.obter(this._kb(chave), this.agora())); }
 }
 
 // req.ip é calculado pelo Express conforme trust proxy; nunca ler XFF bruto.
@@ -78,7 +91,9 @@ const ipDe = (req) => String(req.ip || req.socket?.remoteAddress || 'desconhecid
 const FALHAS = new Set([401, 403, 404, 429]);
 
 /**
- * Middleware. Opções do Limitador + `chave(req)` e `aoBloquear(req, info)`.
+ * Middleware. Opções do Limitador (inclusive `prefixo`) + `chave(req)`,
+ * `aoBloquear(req, info)` e `aoErro(erro)`. Vários escudo() sobre a MESMA loja
+ * (ex.: um geral e um de login) precisam, cada um, de um `prefixo` próprio.
  */
 export function escudo(opcoes = {}) {
   const { chave = ipDe, aoBloquear, aoErro, ...resto } = opcoes;

@@ -26,6 +26,10 @@ El consumidor Express debe resolver proxy-addr >=2.0.8 dentro de su rango compat
 
 [proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)
 
+## Prefijo por instancia (1.3.0, 2026-11-18)
+
+Opción nueva y opcional. El valor predeterminado `''` graba las mismas claves `r:<clave>` y `b:<clave>` de la 1.2.x, sin migración: los almacenes propios con datos anteriores siguen siendo válidos. Al adoptar `prefixo` en un almacén ya en uso, esa instancia deja de leer los conteos y bloqueos grabados sin prefijo, que vencen por TTL. Un prefijo que no sea texto o que contenga `:` se rechaza con `TypeError` al construir. Las instancias que comparten el mismo almacén necesitan, cada una, su propio prefijo.
+
 ## Indicadores condicionales
 
 Los badges usan SVG locales generados desde la API oficial de GitHub. Stars

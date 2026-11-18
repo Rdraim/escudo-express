@@ -4,6 +4,10 @@
   <a href="CHANGELOG.es-AR.md"><img src="assets/support/flag-es-ar.svg" width="36" height="24" alt="Español (Argentina)" title="Español (Argentina)"></a>
 </p>
 
+# 1.3.0 — 2026-11-18
+
+Nueva opción `prefixo` en `Limitador` y `escudo()` para instancias que comparten el mismo almacén. Sin ella, un límite general y otro más estricto (por ejemplo, login) montados sobre el mismo almacén sumaban sus conteos y compartían los bloqueos, y el estricto llegaba ya agotado. Con prefijo, las claves pasan a ser `<prefijo>|r:<clave>` y `<prefijo>|b:<clave>`; el prefijo no admite `:` y un prefijo inválido genera `TypeError`. El valor predeterminado `''` conserva las claves `r:<clave>` y `b:<clave>` y el comportamiento de la 1.2.x. Al compartir un almacén entre instancias, dale a cada una su propio prefijo. Sin persistencia nueva ni cambios en la interfaz síncrona del almacén.
+
 # 1.2.0 — 2026-10-07
 
 ## 1.2.2 — 2026-10-07

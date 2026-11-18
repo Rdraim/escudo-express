@@ -26,6 +26,10 @@ O consumidor Express deve resolver proxy-addr >=2.0.8 dentro da sua faixa compat
 
 [proxy-addr 2.0.8](https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8)
 
+## Prefixo por instância (1.3.0, 2026-11-18)
+
+Opção nova e opcional. O padrão `''` grava as mesmas chaves `r:<chave>` e `b:<chave>` da 1.2.x, sem migração: lojas próprias com dados antigos continuam válidas. Ao adotar `prefixo` numa loja já em uso, aquela instância deixa de ler as contagens e bloqueios gravados sem prefixo, que expiram pelo TTL. Prefixo que não seja texto ou que contenha `:` é recusado com `TypeError` na construção. Instâncias que compartilham a mesma loja precisam, cada uma, de um prefixo próprio.
+
 ## Indicadores condicionais
 
 O README usa SVGs locais gerados a partir da API oficial do GitHub. Stars e
